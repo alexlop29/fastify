@@ -1,5 +1,5 @@
 ## About
-Demonstrates how to track user engagaement using Mix Panel
+Demonstrates how to track user engagaement using Mixpanel
 
 ## 🚀 Demo
 [Watch me demo the feature!](https://www.loom.com/share/e40815413acc4b76af29a568056e7584?sid=7177ff8a-f23f-45d4-8ea2-dd41a24538e9)

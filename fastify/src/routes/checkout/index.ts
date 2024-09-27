@@ -4,6 +4,9 @@ import { FastifyPluginAsync } from "fastify";
 import { Checkout } from "../../services";
 
 const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+  fastify.get("/", async (request, reply) => {
+    return reply.send("hi");
+  });
   fastify.route({
     method: "POST",
     url: "/create-session",

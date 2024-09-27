@@ -10,6 +10,7 @@ export class Checkout {
 
   async create_checkout_session(lookup_key: string) {
     const prices = await this.read_prices(lookup_key);
+    console.log(`alex look at the prices`, prices);
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: "auto",
       line_items: [

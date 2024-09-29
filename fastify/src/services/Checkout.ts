@@ -1,5 +1,6 @@
-import { DOMAIN, STRIPE_WEBHOOK_SECRET, stripe } from "../config";
+import { STRIPE_WEBHOOK_SECRET, stripe } from "../config";
 
+const DOMAIN = "http://localhost:3000"
 /*
   NOTE: (alopez) To reduce the scope of the project, we are merely implementing a basic
   subscription workflow. Additional features will be included, such as improved error handling,
@@ -10,7 +11,6 @@ export class Checkout {
 
   async create_checkout_session(lookup_key: string) {
     const prices = await this.read_prices(lookup_key);
-    console.log(`alex look at the prices`, prices);
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: "auto",
       line_items: [

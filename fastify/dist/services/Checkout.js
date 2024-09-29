@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Checkout = void 0;
 const config_1 = require("../config");
+const DOMAIN = "http://localhost:3000";
 class Checkout {
     constructor() { }
     async create_checkout_session(lookup_key) {
         const prices = await this.read_prices(lookup_key);
-        console.log(`alex look at the prices`, prices);
         const session = await config_1.stripe.checkout.sessions.create({
             billing_address_collection: "auto",
             line_items: [
@@ -16,8 +16,8 @@ class Checkout {
                 },
             ],
             mode: "subscription",
-            success_url: `${config_1.DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${config_1.DOMAIN}?canceled=true`,
+            success_url: `${DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${DOMAIN}?canceled=true`,
         });
         return session;
     }
@@ -26,7 +26,7 @@ class Checkout {
         const checkoutSession = await config_1.stripe.checkout.sessions.retrieve(session_id);
         const session = await config_1.stripe.billingPortal.sessions.create({
             customer: checkoutSession.customer,
-            return_url: config_1.DOMAIN,
+            return_url: DOMAIN,
         });
         return session;
     }

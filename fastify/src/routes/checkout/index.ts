@@ -23,7 +23,8 @@ const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       const { lookup_key } = request.body as { lookup_key: string };
       const CheckoutService = new Checkout();
       const session = await CheckoutService.create_checkout_session(lookup_key);
-      return reply.code(303).redirect(session.url);
+      return reply.code(200).send({"url": session.url});
+      // return reply.code(303).redirect(session.url);
     },
   });
   fastify.route({

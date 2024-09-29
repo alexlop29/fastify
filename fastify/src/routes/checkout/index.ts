@@ -23,8 +23,7 @@ const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       const { lookup_key } = request.body as { lookup_key: string };
       const CheckoutService = new Checkout();
       const session = await CheckoutService.create_checkout_session(lookup_key);
-      return reply.code(200).send({"url": session.url});
-      // return reply.code(303).redirect(session.url);
+      return reply.code(200).send({ url: session.url });
     },
   });
   fastify.route({
@@ -43,7 +42,7 @@ const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       const { session_id } = request.body as { session_id: string };
       const CheckoutService = new Checkout();
       const session = await CheckoutService.create_portal_session(session_id);
-      return reply.code(303).redirect(session.url);
+      return reply.code(200).send({ url: session.url });
     },
   });
   fastify.route({
@@ -55,13 +54,13 @@ const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         request.body,
         request.body,
         request.headers["stripe-signature"],
-  )
-      if (event == "succes"){
+      );
+      if (event == "succes") {
         return reply.code(200).send();
       } else {
         return reply.code(400).send();
       }
-},
+    },
   });
 };
 

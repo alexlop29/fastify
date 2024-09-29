@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Checkout = void 0;
 const config_1 = require("../config");
-const DOMAIN = "http://localhost:3000";
+const DOMAIN = "http://localhost:3001/subscription";
 class Checkout {
     constructor() { }
     async create_checkout_session(lookup_key) {
@@ -21,7 +21,6 @@ class Checkout {
         });
         return session;
     }
-    ;
     async create_portal_session(session_id) {
         const checkoutSession = await config_1.stripe.checkout.sessions.retrieve(session_id);
         const session = await config_1.stripe.billingPortal.sessions.create({
@@ -30,7 +29,6 @@ class Checkout {
         });
         return session;
     }
-    ;
     async create_webhook(body, event, signature) {
         if (config_1.STRIPE_WEBHOOK_SECRET) {
             try {
@@ -45,27 +43,27 @@ class Checkout {
         let subscription;
         let status;
         switch (event.type) {
-            case 'customer.subscription.trial_will_end':
+            case "customer.subscription.trial_will_end":
                 subscription = event.data.object;
                 status = subscription.status;
                 console.log(`Subscription status is ${status}.`);
                 break;
-            case 'customer.subscription.deleted':
+            case "customer.subscription.deleted":
                 subscription = event.data.object;
                 status = subscription.status;
                 console.log(`Subscription status is ${status}.`);
                 break;
-            case 'customer.subscription.created':
+            case "customer.subscription.created":
                 subscription = event.data.object;
                 status = subscription.status;
                 console.log(`Subscription status is ${status}.`);
                 break;
-            case 'customer.subscription.updated':
+            case "customer.subscription.updated":
                 subscription = event.data.object;
                 status = subscription.status;
                 console.log(`Subscription status is ${status}.`);
                 break;
-            case 'entitlements.active_entitlement_summary.updated':
+            case "entitlements.active_entitlement_summary.updated":
                 subscription = event.data.object;
                 console.log(`Active entitlement summary updated for ${subscription}.`);
                 break;
@@ -80,7 +78,6 @@ class Checkout {
             expand: ["data.product"],
         });
     }
-    ;
 }
 exports.Checkout = Checkout;
 //# sourceMappingURL=Checkout.js.map

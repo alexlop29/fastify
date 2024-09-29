@@ -21,7 +21,7 @@ const routes = async (fastify, opts) => {
             const { lookup_key } = request.body;
             const CheckoutService = new services_1.Checkout();
             const session = await CheckoutService.create_checkout_session(lookup_key);
-            return reply.code(200).send({ "url": session.url });
+            return reply.code(200).send({ url: session.url });
         },
     });
     fastify.route({
@@ -40,7 +40,7 @@ const routes = async (fastify, opts) => {
             const { session_id } = request.body;
             const CheckoutService = new services_1.Checkout();
             const session = await CheckoutService.create_portal_session(session_id);
-            return reply.code(303).redirect(session.url);
+            return reply.code(200).send({ url: session.url });
         },
     });
     fastify.route({

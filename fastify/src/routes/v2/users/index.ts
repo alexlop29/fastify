@@ -1,15 +1,15 @@
 import { FastifyPluginAsync } from "fastify";
 
 // services
-import { UsersService } from "../../../services";
+import { UsersServiceV2 } from "../../../services";
 
 const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.route({
     method: "GET",
-    url: "/users",
-    config: { tag: "v1" },
+    url: "/",
+    config: { tag: "v2" },
     handler: async (request, reply) => {
-      const usersService = new UsersService();
+      const usersService = new UsersServiceV2();
       const users = usersService.getAll();
       return users;
     },
